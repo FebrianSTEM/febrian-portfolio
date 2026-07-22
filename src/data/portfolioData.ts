@@ -38,7 +38,7 @@ export const PORTFOLIO_DATA = {
     email: "m.febrian.ee@gmail.com",
     githubUrl: "https://github.com/FebrianSTEM",
     linkedinUrl: "https://linkedin.com/in/muhammad-febrian-maulana",
-    cvFileUrl: "/CV_Muhammad_Febrian_Maulana_2026.pdf",
+    cvFileUrl: `${import.meta.env.BASE_URL}CV_Muhammad_Febrian_Maulana_2026.pdf`,
     summary: "Experienced Software Engineer skilled in full-stack app development, enterprise microservices, and database optimization. Proficient across the entire SDLC (Waterfall & Agile methodology) with deep expertise in C#, Java, Python, and Matlab. Passionate about applying software engineering and computer science to build robust, scalable business platforms.",
     metrics: [
       { label: "Processing Speedup", value: "98.3%", highlight: "Reduced batch scheduler time from >1hr to <1min for 155k+ records" },

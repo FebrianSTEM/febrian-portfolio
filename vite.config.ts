@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: './', // Enables relative paths for GitHub Pages & custom domains
+  base: '/febrian-portfolio/',
 })
