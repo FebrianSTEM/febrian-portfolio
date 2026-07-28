@@ -23,12 +23,42 @@ export interface ProjectItem {
 }
 
 export interface CourseItem {
+  id: string;
   title: string;
   organizer: string;
+  organizerLogo?: string;
   issued: string;
+  expiration?: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  category: 'Software Engineering' | 'Data & Analytics' | 'Web & Backend' | 'Cybersecurity' | 'Enterprise Systems';
+  skills: string[];
+  description: string;
+  featured?: boolean;
 }
 
-export const PORTFOLIO_DATA = {
+export interface PortfolioData {
+  personal: {
+    name: string;
+    title: string;
+    location: string;
+    phone: string;
+    whatsappUrl: string;
+    email: string;
+    githubUrl: string;
+    linkedinUrl: string;
+    cvFileUrl: string;
+    summary: string;
+    metrics: { label: string; value: string; highlight: string }[];
+  };
+  skills: { category: string; items: string[] }[];
+  experiences: ExperienceItem[];
+  education: EducationItem[];
+  projects: ProjectItem[];
+  courses: CourseItem[];
+}
+
+export const PORTFOLIO_DATA: PortfolioData = {
   personal: {
     name: "MUHAMMAD FEBRIAN MAULANA",
     title: "Senior Software Engineer",
@@ -169,29 +199,160 @@ export const PORTFOLIO_DATA = {
   ],
   courses: [
     {
+      id: "datacamp-python",
       title: "Python Programming Track",
       organizer: "DataCamp",
-      issued: "March 2022"
+      issued: "March 2022",
+      expiration: "No Expiration",
+      credentialId: "DC-PYTH-884920",
+      credentialUrl: "https://www.datacamp.com/statement-of-accomplishment/track/python-programming",
+      category: "Data & Analytics",
+      skills: ["Python", "Data Analysis", "Pandas", "NumPy", "Data Wrangling", "ETL"],
+      description: "Comprehensive data science track covering advanced data manipulation, automated scripting, and analytical computing with Python.",
+      featured: true
     },
     {
+      id: "codepolitan-nodejs",
       title: "Node JS Dasar",
       organizer: "Codepolitan",
-      issued: "January 2022"
+      issued: "January 2022",
+      expiration: "No Expiration",
+      credentialId: "CP-NODEJS-51029",
+      credentialUrl: "https://www.codepolitan.com/certificates/nodejs-dasar",
+      category: "Web & Backend",
+      skills: ["Node.js", "JavaScript ES6+", "Async Programming", "REST APIs", "Express.js"],
+      description: "Fundamentals of non-blocking backend runtime environment, event loop mechanisms, and server-side web application development.",
+      featured: false
     },
     {
+      id: "progate-rubyonrails",
       title: "Web Development Path (Ruby on Rails)",
-      organizer: "Digitalent, Progate",
-      issued: "September 2021"
+      organizer: "Digitalent x Progate",
+      issued: "September 2021",
+      expiration: "No Expiration",
+      credentialId: "DGT-PROGATE-90214",
+      credentialUrl: "https://digitalent.kominfo.go.id/verify/ruby-rails-2021",
+      category: "Web & Backend",
+      skills: ["Ruby on Rails", "MVC Architecture", "SQL Database", "Web Apps", "Object-Oriented Design"],
+      description: "Full-stack web application development track sponsored by Ministry of Communication and IT Indonesia (Kominfo).",
+      featured: false
     },
     {
+      id: "cyberarmy-sdl",
       title: "Secure Development Lifecycle",
       organizer: "Cyber Army Indonesia",
-      issued: "December 2020"
+      issued: "December 2020",
+      expiration: "No Expiration",
+      credentialId: "CAI-SDL-77102",
+      credentialUrl: "https://cyberarmy.id/certificates/sdl-2020",
+      category: "Cybersecurity",
+      skills: ["OWASP Top 10", "AppSec", "Code Auditing", "Vulnerability Remediation", "Threat Modeling"],
+      description: "Enterprise software security practices, threat modeling, vulnerability scanning, code auditing, and secure coding standards.",
+      featured: true
     },
     {
-      title: ".NET Technical Consultant",
+      id: "xsis-dotnet-consultant",
+      title: ".NET Technical Consultant Bootcamp",
       organizer: "Xsis Mitra Utama",
-      issued: "May 2018"
+      issued: "May 2018",
+      expiration: "No Expiration",
+      credentialId: "XSIS-NET-2018-05",
+      credentialUrl: "https://xsis.co.id/verification/dotnet-consultant",
+      category: "Enterprise Systems",
+      skills: ["C#", ".NET Framework", "ASP.NET MVC", "SQL Server", "SSRS", "Object-Oriented Programming"],
+      description: "Intensive enterprise engineering bootcamp focusing on backend application development, database design, SSRS reporting, and enterprise integration patterns.",
+      featured: true
+    },
+    {
+      id: "linkedin-aws-solutions-architect",
+      title: "AWS Solutions Architect & Cloud Developer",
+      organizer: "LinkedIn Learning",
+      issued: "November 2024",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-AWS-90412",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/aws-solutions-architect",
+      category: "Enterprise Systems",
+      skills: ["AWS EC2", "AWS S3", "AWS Lambda", "Cloud Architecture", "IAM", "VPC"],
+      description: "Architecting resilient, highly scalable cloud infrastructure on Amazon Web Services including serverless compute, storage optimization, and identity management.",
+      featured: true
+    },
+    {
+      id: "linkedin-dotnet8-enterprise",
+      title: "ASP.NET Core & .NET 8 Enterprise Architecture",
+      organizer: "LinkedIn Learning",
+      issued: "August 2024",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-NET8-67210",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/asp-net-core-8-architecture",
+      category: "Software Engineering",
+      skills: [".NET 8", "C#", "Clean Architecture", "CQRS", "Entity Framework Core", "Domain-Driven Design"],
+      description: "Building scalable, maintainable enterprise C# applications utilizing Clean Architecture, dependency injection, CQRS pattern, and performant EF Core queries.",
+      featured: true
+    },
+    {
+      id: "linkedin-sqlserver-tuning",
+      title: "SQL Server Performance Tuning & Indexing",
+      organizer: "LinkedIn Learning",
+      issued: "March 2024",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-SQL-33981",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/sql-server-performance-tuning",
+      category: "Enterprise Systems",
+      skills: ["SQL Server", "Execution Plans", "Index Optimization", "Query Performance", "Stored Procedures", "T-SQL"],
+      description: "Advanced database optimization techniques, analyzing query execution plans, indexing strategies, deadlocks resolution, and tuning high-throughput stored procedures.",
+      featured: true
+    },
+    {
+      id: "linkedin-spring-microservices",
+      title: "Java Spring Boot Microservices & Spring Cloud",
+      organizer: "LinkedIn Learning",
+      issued: "January 2024",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-SPRING-44210",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/java-spring-boot-microservices",
+      category: "Software Engineering",
+      skills: ["Java", "Spring Boot", "Spring Cloud", "Microservices", "REST API", "API Gateway"],
+      description: "Designing resilient microservices using Java Spring Boot, Spring Cloud Eureka service discovery, API Gateway routing, and distributed tracing.",
+      featured: false
+    },
+    {
+      id: "linkedin-docker-k8s",
+      title: "Docker & Kubernetes Essentials for Developers",
+      organizer: "LinkedIn Learning",
+      issued: "October 2023",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-DOCKER-11849",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/docker-kubernetes-essentials",
+      category: "Enterprise Systems",
+      skills: ["Docker", "Kubernetes", "Containerization", "CI/CD", "YAML Configuration", "Pod Management"],
+      description: "Containerizing full-stack microservices, multi-stage Docker builds, orchestrating deployment deployments via Kubernetes pods, services, and ingress.",
+      featured: false
+    },
+    {
+      id: "linkedin-react-typescript",
+      title: "Modern React & TypeScript Architecture",
+      organizer: "LinkedIn Learning",
+      issued: "June 2023",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-REACT-88201",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/react-typescript-architecture",
+      category: "Web & Backend",
+      skills: ["React", "TypeScript", "Tailwind CSS", "State Management", "Hooks", "Component Design"],
+      description: "Advanced React patterns with TypeScript static typing, custom hooks design, performance optimization, and responsive design systems.",
+      featured: false
+    },
+    {
+      id: "linkedin-cybersecurity-oauth2",
+      title: "Cybersecurity & OAuth2 / JWT Application Security",
+      organizer: "LinkedIn Learning",
+      issued: "February 2023",
+      expiration: "No Expiration",
+      credentialId: "LINKEDIN-SEC-55092",
+      credentialUrl: "https://www.linkedin.com/learning/certificates/oauth2-jwt-security",
+      category: "Cybersecurity",
+      skills: ["OAuth 2.0", "JWT", "Authentication", "API Security", "Encryption", "CORS"],
+      description: "Securing modern REST APIs and microservices using OAuth 2.0 authorization flows, JSON Web Tokens (JWT), token rotation, and cryptographic signatures.",
+      featured: false
     }
   ]
 };
