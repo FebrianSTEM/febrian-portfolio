@@ -6,27 +6,34 @@ import { Experience } from './components/Experience';
 import { ProjectsAndCerts } from './components/ProjectsAndCerts';
 import { Education } from './components/Education';
 import { ContactFooter } from './components/ContactFooter';
+import { CosmicUniverseCanvas } from './components/CosmicUniverseCanvas';
 
 export function App() {
   return (
-    <div className="min-h-screen bg-[#070a13] text-slate-200 selection:bg-blue-600 selection:text-white font-sans">
-      {/* Running Wise Jokes Marquee at Top */}
-      <JokeTicker />
+    <div className="min-h-screen bg-[#050714] text-slate-200 selection:bg-cyan-500 selection:text-slate-950 font-sans relative overflow-x-hidden">
+      {/* Cosmic Universe Background Canvas Engine */}
+      <CosmicUniverseCanvas />
 
-      {/* Sticky Navigation Header */}
-      <Header />
+      {/* Main Content Layout Wrapper */}
+      <div className="relative z-10">
+        {/* Running Wise Jokes Marquee at Top */}
+        <JokeTicker />
 
-      {/* Main Landing Content */}
-      <main>
-        <Hero />
-        <Skills />
-        <Experience />
-        <ProjectsAndCerts />
-        <Education />
-      </main>
+        {/* Sticky Navigation Header */}
+        <Header />
 
-      {/* Contact & Footer Section */}
-      <ContactFooter />
+        {/* Main Landing Content */}
+        <main>
+          <Hero />
+          <Skills />
+          <Experience />
+          <ProjectsAndCerts />
+          <Education />
+        </main>
+
+        {/* Contact & Footer Section */}
+        <ContactFooter />
+      </div>
     </div>
   );
 }
