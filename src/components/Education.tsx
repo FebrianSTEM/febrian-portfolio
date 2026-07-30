@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { PORTFOLIO_DATA } from '../data/portfolioData';
-import { GraduationCap, MapPin, Calendar, CheckCircle } from 'lucide-react';
+import { GraduationCap, MapPin, Calendar, CheckCircle, Award } from 'lucide-react';
 
 export const Education: React.FC = () => {
   const edu = PORTFOLIO_DATA.education[0];
@@ -44,15 +44,23 @@ export const Education: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 text-sm font-mono text-slate-400 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-8">
+            <div className="flex flex-col gap-2.5 text-sm font-mono text-slate-400 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-8">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-cyan-400" />
+                <MapPin className="w-4 h-4 text-cyan-400 shrink-0" />
                 <span>{edu.location}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-blue-400" />
+                <Calendar className="w-4 h-4 text-blue-400 shrink-0" />
                 <span>Graduation: {edu.period}</span>
               </div>
+              {edu.gpa && (
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/10 via-emerald-500/10 to-cyan-500/10 border border-cyan-500/40 text-cyan-300 font-semibold shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                    <Award className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse" />
+                    <span>GPA: {edu.gpa}</span>
+                  </span>
+                </div>
+              )}
             </div>
 
           </div>
