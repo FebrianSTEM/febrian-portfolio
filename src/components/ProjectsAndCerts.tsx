@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PORTFOLIO_DATA, type CourseItem } from '../data/portfolioData';
 import { CredentialModal } from './CredentialModal';
-import { LinkedInSyncBadge } from './LinkedInSyncBadge';
 import { FolderGit2, Award, Calendar, Search, ShieldCheck, ExternalLink, Eye, Sparkles } from 'lucide-react';
 
 export const ProjectsAndCerts: React.FC = () => {
@@ -107,9 +106,6 @@ export const ProjectsAndCerts: React.FC = () => {
             <p className="mt-3 text-slate-400 text-sm max-w-xl mx-auto">
               Verified LinkedIn credentials, enterprise architecture bootcamps, and high-impact specialized engineering certifications.
             </p>
-
-            {/* LinkedIn Live Sync Status Badge Component */}
-            <LinkedInSyncBadge />
           </div>
 
           {/* Search Bar & Category Filter Controls */}
