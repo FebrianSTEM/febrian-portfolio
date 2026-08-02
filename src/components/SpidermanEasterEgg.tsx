@@ -39,8 +39,8 @@ export const SpidermanEasterEgg: React.FC = () => {
       {/* State 2: Caught Mask Modal */}
       <SpidermanModal isOpen={gameState === 'caught'} onClose={handleCloseModal} />
 
-      {/* State 3: Hanging Upside Down Background Guardian */}
-      {gameState === 'hanging' && <SpidermanHanging />}
+      {/* State 3: Hanging Upside Down Background Guardian (Clickable to re-open modal) */}
+      {gameState === 'hanging' && <SpidermanHanging onClick={handleCatch} />}
     </>
   );
 };

@@ -44,11 +44,12 @@ All functional, visual, responsive, performance, accessibility, negative testing
 | 15 | **Spidey FX** | Red, Gold & Cyan Confetti Burst | `SpidermanModal.tsx` | **PASS** | Triggers `canvas-confetti` burst on CTA interaction. |
 | 16 | **Hanging Guardian** | Upside-down hanging pose after dismissal | `SpidermanHanging.tsx` | **PASS** | Transitions smoothly to upside-down pendulum sway in top right corner. |
 | 17 | **Comic Speech Bubble** | Upside-down Spidey comic dialogue callout | `SpidermanHanging.tsx` | **PASS** | Renders animated speech bubble reading `"Please hire Febrian! He's a good man! 🕷️✨"` pointing to Spidey. |
-| 18 | **Non-Intrusive UX** | Passive background element (`pointer-events-none`) | `SpidermanHanging.tsx` | **PASS** | `pointer-events-none` container ensures 0 interference with underlying portfolio links, buttons, or scroll. |
-| 19 | **Page Refresh Reset** | Page refresh resets to swinging state | `SpidermanEasterEgg.tsx` | **PASS** | State initializes to `'swinging'` on mount, restoring active Easter Egg on every site refresh. |
-| 20 | **Auto-Expiration** | 1-month expiration date (`Sept 2, 2026 23:59:59`) | `SpidermanEasterEgg.tsx` | **PASS** | Evaluates `new Date() > EXPIRATION_DATE` on mount; unmounts automatically when expired. |
-| 21 | **Keyboard Access** | Modal ESC Key Listener | `SpidermanModal.tsx` | **PASS** | Pressing `Escape` key closes the modal and transitions state to hanging. |
-| 22 | **Body Scroll Lock** | Prevent background scrolling when modal is open | `SpidermanModal.tsx` | **PASS** | Locks `document.body.style.overflow = 'hidden'` while modal is open, restoring on unmount. |
+| 18 | **Clickable Hanging Spidey** | Click upside-down hanging Spidey to re-open modal | `SpidermanHanging.tsx` | **PASS** | Enables `pointer-events-auto` and `onClick` / `onPointerDown` on hanging Spidey to trigger modal anytime. |
+| 19 | **Non-Intrusive UX** | Passive background element (`pointer-events-none`) | `SpidermanHanging.tsx` | **PASS** | Container ensures 0 interference with underlying portfolio links, buttons, or scroll. |
+| 20 | **Page Refresh Reset** | Page refresh resets to swinging state | `SpidermanEasterEgg.tsx` | **PASS** | State initializes to `'swinging'` on mount, restoring active Easter Egg on every site refresh. |
+| 21 | **Auto-Expiration** | 1-month expiration date (`Sept 2, 2026 23:59:59`) | `SpidermanEasterEgg.tsx` | **PASS** | Evaluates `new Date() > EXPIRATION_DATE` on mount; unmounts automatically when expired. |
+| 22 | **Keyboard Access** | Modal ESC Key Listener | `SpidermanModal.tsx` | **PASS** | Pressing `Escape` key closes the modal and transitions state to hanging. |
+| 23 | **Body Scroll Lock** | Prevent background scrolling when modal is open | `SpidermanModal.tsx` | **PASS** | Locks `document.body.style.overflow = 'hidden'` while modal is open, restoring on unmount. |
 
 ---
 

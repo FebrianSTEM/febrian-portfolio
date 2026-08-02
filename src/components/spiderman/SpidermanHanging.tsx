@@ -2,7 +2,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SpidermanHangingSVG } from './SpidermanSVGs';
 
-export const SpidermanHanging: React.FC = () => {
+interface SpidermanHangingProps {
+  onClick?: () => void;
+}
+
+export const SpidermanHanging: React.FC<SpidermanHangingProps> = ({ onClick }) => {
+  const handleClick = (e: React.MouseEvent | React.PointerEvent) => {
+    e.stopPropagation();
+    if (onClick) onClick();
+  };
+
   return (
     <div className="fixed top-0 right-4 sm:right-16 z-30 pointer-events-none select-none">
       {/* Gentle Pendulum Sway Animation */}
@@ -24,9 +33,14 @@ export const SpidermanHanging: React.FC = () => {
           <div className="absolute top-0 -left-[3px] w-2 h-2 rounded-full bg-[#00E5FF] shadow-[0_0_6px_#00E5FF]" />
         </div>
 
-        {/* Upside Down Spider-Man Graphic with Comic Speech Bubble */}
-        <div className="-mt-1 relative flex items-center justify-center filter drop-shadow-[0_0_12px_rgba(227,0,34,0.5)]">
-          <SpidermanHangingSVG className="w-20 h-32 sm:w-24 sm:h-36" />
+        {/* Upside Down Spider-Man Graphic with Comic Speech Bubble (Clickable Target) */}
+        <div
+          onClick={handleClick}
+          onPointerDown={handleClick}
+          className="-mt-1 relative flex items-center justify-center filter drop-shadow-[0_0_15px_rgba(227,0,34,0.6)] cursor-pointer pointer-events-auto group transition-transform hover:scale-110 active:scale-95"
+        >
+          {/* Interactive Visual Spidey */}
+          <SpidermanHangingSVG className="w-20 h-32 sm:w-24 sm:h-36 transition-filter group-hover:drop-shadow-[0_0_20px_rgba(0,229,255,0.8)]" />
 
           {/* Marvel Comic Speech Bubble */}
           <motion.div
@@ -38,19 +52,25 @@ export const SpidermanHanging: React.FC = () => {
               repeatType: "reverse",
               ease: "easeInOut",
             }}
-            className="absolute -left-44 top-16 sm:-left-52 sm:top-20 bg-gradient-to-br from-white via-slate-50 to-slate-100 text-slate-900 px-3.5 py-2.5 rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.6)] border-2 border-[#E30022] max-w-[170px] sm:max-w-[200px] text-center"
+            className="absolute -left-44 top-16 sm:-left-52 sm:top-20 bg-gradient-to-br from-white via-slate-50 to-slate-100 text-slate-900 px-3.5 py-2.5 rounded-2xl shadow-[0_8px_25px_rgba(0,0,0,0.6)] border-2 border-[#E30022] group-hover:border-[#00E5FF] max-w-[170px] sm:max-w-[200px] text-center transition-colors"
           >
             {/* Speech Bubble Arrow Tail pointing towards Spidey */}
-            <div className="absolute -right-2.5 top-4 w-0 h-0 border-y-[6px] border-y-transparent border-l-[10px] border-l-[#E30022]" />
+            <div className="absolute -right-2.5 top-4 w-0 h-0 border-y-[6px] border-y-transparent border-l-[10px] border-l-[#E30022] group-hover:border-l-[#00E5FF] transition-colors" />
             <div className="absolute -right-2 top-[17px] w-0 h-0 border-y-[5px] border-y-transparent border-l-[8px] border-l-white" />
 
             <p className="text-xs sm:text-sm font-extrabold tracking-tight leading-tight text-slate-900 font-sans drop-shadow-sm">
               "Please hire Febrian! He's a good man! 🕷️✨"
             </p>
+
+            {/* Click Hint Subtitle */}
+            <span className="block mt-1 text-[9px] font-mono font-bold text-[#E30022] group-hover:text-cyan-600 uppercase tracking-wider">
+              ( Click Me! )
+            </span>
           </motion.div>
         </div>
       </motion.div>
     </div>
   );
 };
+
 
