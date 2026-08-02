@@ -7,12 +7,16 @@ import { ProjectsAndCerts } from './components/ProjectsAndCerts';
 import { Education } from './components/Education';
 import { ContactFooter } from './components/ContactFooter';
 import { CosmicUniverseCanvas } from './components/CosmicUniverseCanvas';
+import { SpidermanEasterEgg } from './components/SpidermanEasterEgg';
 
 export function App() {
   return (
     <div className="min-h-screen bg-[#050714] text-slate-200 selection:bg-cyan-500 selection:text-slate-950 font-sans relative overflow-x-hidden">
       {/* Cosmic Universe Background Canvas Engine */}
       <CosmicUniverseCanvas />
+
+      {/* Interactive Spider-Man Easter Egg System */}
+      <SpidermanEasterEgg />
 
       {/* Main Content Layout Wrapper */}
       <div className="relative z-10">

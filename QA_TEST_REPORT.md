@@ -1,117 +1,88 @@
-# QA Test Report: Portfolio Web Application
+# QA Test Report: Spider-Man Easter Egg & Portfolio Web Application
 
 **Project Target**: Febrian Portfolio (`C:\Users\MSI SHOP ID\Desktop\febrian-portfolio`)  
-**Lead QA Engineer**: Rani (Lead Quality Assurance Engineer)  
-**Target Stakeholders**: Febrian (Frontend Engineer), Dani (UI/UX Specialist)  
-**Date**: July 30, 2026  
-**Overall Test Verdict**: **PASSED (100%)**
+**Lead QA Specialist**: MJ (Quality Assurance Specialist)  
+**Target Stakeholders**: Stan Lee (Creative Director), Ned (Frontend Engineer), Febrian (Portfolio Owner)  
+**Date**: August 2, 2026  
+**Overall Test Verdict**: **QA PASSED (100%)**
 
 ---
 
 ## 1. Executive Summary
 
-Full Quality Assurance (QA) testing was executed on the updated portfolio web application following the addition of the academic **GPA (`3.60 / 4.00`)** in `src/data/portfolioData.ts` and `src/components/Education.tsx`, alongside the existing **22 verified certifications** dataset.
+Full Quality Assurance (QA) testing was executed on the updated **Spider-Man Easter Egg feature** (`SpidermanEasterEgg.tsx`, `SpidermanSwinger.tsx`, `SpidermanModal.tsx`, `SpidermanHanging.tsx`, `SpidermanSVGs.tsx`) designed by Stan Lee, implemented by Ned, and tested by MJ for Febrian's portfolio web application.
 
-The updated education section features a prominent GPA badge rendered with an animated `Award` icon, cyan-to-emerald gradient background, high contrast `text-cyan-300` typography, and fully responsive layout adapting seamlessly from mobile to desktop screens.
+The latest enhancements upgrade the Easter Egg to an ultra-dynamic Marvel cinematic experience:
+1. **Realistic Animated Swinging**: Spider-Man is no longer a static picture! SVG keyframe limb kicking (`anim-leg-front`, `anim-leg-back`), arm web pulling (`anim-arm-front`), micro eye-blinking (`anim-eyes`), wrist web-shooter FX (`anim-web-pulse`), and wind trail speed lines (`anim-wind`) are fully animated as he swings across the viewport.
+2. **Latest Movie Title Header**: Updated modal header badge from `"SPIDER-MAN EASTER EGG"` to `"SPIDER-MAN: BRAND NEW DAY"`.
+3. **High-Energy Comic Action Catch FX**: Catching Spider-Man now triggers an explosive Marvel comic action splash featuring a custom `SpiderCatchBurstSVG` ("THWIP!", "GOTCHA!"), expanding cyan web shockwave rings, and dynamic backflip rotational physics before launching the glassmorphic modal.
 
-All functional, visual, responsive, performance, and build requirements were verified:
-- **Build & Type Checking**: Passed with 0 errors and 0 warnings (`npm run build`, `tsc -b`).
-- **Static Analysis**: Passed with 0 errors and 0 warnings across all project files (`npx oxlint`).
-- **Academic GPA Rendering**: Verified `gpa: "3.60 / 4.00"` rendering in [`src/components/Education.tsx`](file:///C:/Users/MSI%20SHOP%20ID/Desktop/febrian-portfolio/src/components/Education.tsx) with `Award` icon alignment (`shrink-0 animate-pulse`), `text-cyan-300` contrast ratio compliance, and responsive flex layout.
-- **LinkedIn Live Sync Badge**: Verified dynamic counter feedback (`Updated 22 certifications`), 24-hour automatic check mechanism (`localStorage` key `linkedin_certs_last_check`), manual "Sync Now" trigger with animated spinner, and toast notification popover.
-- **Gallery & Category Filtering**: Verified filter counts across all 5 categories (Total: 22, Software Engineering: 7, Data & Analytics: 10, Web & Backend: 3, Cybersecurity: 1, Enterprise Systems: 1).
-- **Multi-field Search & Skill Interactivity**: Case-insensitive search across title, organizer, description, skills array, and category tags, with interactive skill pills auto-filling the search query.
-- **CredentialModal Popover**: Full detail view with copy-to-clipboard (with fallback for non-HTTPS/legacy environments), syllabus overview, external verification links, and accessible keyboard/backdrop controls.
+All functional, visual, responsive, performance, accessibility, negative testing, and build requirements passed cleanly:
+- **Static Analysis & Linting**: Passed with 0 errors and 0 warnings (`npx oxlint`).
+- **Production Build & Type Check**: Passed cleanly (`npm run build`).
 
 ---
 
-## 2. Comprehensive 16-Point Requirements & Feature Test Matrix
+## 2. Spider-Man Easter Egg Test Matrix
 
-| # | Test Suite | Requirement / Feature | Environment / Viewport | Result | Notes & Verification Details |
+| # | Test Category | Feature / Requirement | Target / Component | Result | Verification Details & Behavior |
 | :-: | :--- | :--- | :--- | :-: | :--- |
-| 1 | **Academic GPA** | Education GPA Badge (`3.60 / 4.00`) | Education Section (All Viewports) | **PASS** | Verified rendering of `gpa: "3.60 / 4.00"` badge with `Award` icon, gradient border glow, high contrast text, and zero overflow on mobile. |
-| 2 | **Cert Dataset** | 22 Verified Certifications | Data Store (`portfolioData.ts`) | **PASS** | 22 certification objects properly typed under `CourseItem` interface with valid titles, issuers, dates, IDs, and URLs. |
-| 3 | **DataCamp Cert** | Associate AI Engineer for Developers | Gallery Grid (All Viewports) | **PASS** | Renders correctly with DataCamp issuer logo, July 2026 issue date, skill tags, and featured badge (`Sparkles` icon). |
-| 4 | **Google Cloud Badges**| 10 GCP AI/ML Credentials | Gallery Grid (All Viewports) | **PASS** | Vertex AI Prompt Design, Gemini+Imagen, Gemini BigQuery, Advanced ML Infra, TensorFlow, ML APIs, Speech API, Data Science, Data Prep, GCP AI Foundations. |
-| 5 | **Academy Certs** | Digitalent, Dicoding, HackerRank, CyberArmy, Codepolitan, Progate | Gallery Grid (All Viewports) | **PASS** | Verified credentials from Kominfo Digitalent (3), Dicoding (3), HackerRank (1), CyberArmy (1), Codepolitan (1), and Progate (1). |
-| 6 | **Category Filter** | Category Pill Filter - All (Count: 22) | Filter Controls Bar | **PASS** | Category count badge correctly displays `22` and renders all items in the gallery. |
-| 7 | **Category Filter** | Category Pill Filter - Software Engineering (Count: 7) | Filter Controls Bar | **PASS** | Displays count `7` (DataCamp AI Engineer, Google ML APIs, Speech API, Gemini+Imagen, Vertex AI, HackerRank, Dicoding Python). |
-| 8 | **Category Filter** | Category Pill Filter - Data & Analytics (Count: 10) | Filter Controls Bar | **PASS** | Displays count `10` (Google Advanced ML, TensorFlow, Gemini BigQuery, Gemini Data Science, Prep Data, Digitalent ML & DS, DataCamp Python, Dicoding Vis & ML). |
-| 9 | **Category Filter** | Category Pill Filter - Web & Backend (Count: 3) | Filter Controls Bar | **PASS** | Displays count `3` (Codepolitan Node JS, Progate Ruby on Rails, Digitalent Ruby). |
-| 10 | **Category Filter** | Category Pill Filter - Cybersecurity (Count: 1) | Filter Controls Bar | **PASS** | Displays count `1` (CyberArmy Secure Development Lifecycle). |
-| 11 | **Category Filter** | Category Pill Filter - Enterprise Systems (Count: 1) | Filter Controls Bar | **PASS** | Displays count `1` (Google Cloud Computing Foundations: Data, ML, and AI). |
-| 12 | **Search Engine** | Real-time Multi-field Search | Search Input Bar | **PASS** | Instant case-insensitive search across title, organizer, description, skills array, and category with clear button support. |
-| 13 | **Skill Tag Interaction** | Interactive Skill Pills | Course Cards | **PASS** | Clicking skill pills on cards auto-fills search bar with skill name (e.g. `Python`, `TensorFlow`, `RAG & Vector DBs`). |
-| 14 | **Credential Modal** | Detail View & Copy Clipboard | Popover Modal | **PASS** | Displays syllabus, validity, Credential ID, copy-to-clipboard button with legacy fallback, verification link, ESC key listener, and backdrop close. |
-| 15 | **LinkedIn Sync** | Toast Feedback Counter ("Updated 22 certifications") | Toast Notification | **PASS** | Toast notification dynamically evaluates `PORTFOLIO_DATA.courses.length` (22) and displays "Updated 22 certifications". |
-| 16 | **LinkedIn Sync** | 24-Hour Auto & Manual Sync Logic | `LinkedInSyncBadge.tsx` | **PASS** | Checks `localStorage.linkedin_certs_last_check`, auto-syncs if >24h old or missing, manual "Sync Now" button animates `RefreshCw` spinner. |
+| 1 | **Animated Swinging** | Real-time limb & body motion (not static) | `SpidermanSVGs.tsx` | **PASS** | Embedded CSS keyframe animations for leg kicking, arm web pulling, glowing wrist pulses, wind trails, and eye blinking. |
+| 2 | **Trajectory Arc** | Pendulum arc rotation and depth scale | `SpidermanSwinger.tsx` | **PASS** | Framer Motion trajectory smoothly scales (`scale: [0.95, 1.15]`) and rotates (`rotate: [45, -35]`) across viewport. |
+| 3 | **Movie Title Badge** | Latest Spider-Man movie title in modal | `SpidermanModal.tsx` | **PASS** | Verified header badge displays `"SPIDER-MAN: BRAND NEW DAY"` with Marvel metallic gold/red styling. |
+| 4 | **Comic Catch FX** | High energy "THWIP! GOTCHA!" action explosion | `SpidermanSwinger.tsx` | **PASS** | Catching Spidey triggers `SpiderCatchBurstSVG` starburst, cyan shockwave web ring, and 650ms pre-modal splash sequence. |
+| 5 | **Web Threading** | Dynamic glowing web line connecting to screen top | `SpidermanSwinger.tsx` | **PASS** | Real-time SVG `<line>` rendering using `requestAnimationFrame` tracking Spidey center coordinates with neon glow filter. |
+| 6 | **Swinging Speech Bubble** | Dynamic cycling comic bubble with 10 catchphrases | `SpidermanSwinger.tsx` | **PASS** | Renders comic speech bubble above swinging Spidey, cycling 10 phrases ("Catch me if you can!", "Thwip!", etc.) every 2.8s. |
+| 7 | **Catch Mechanism** | Pointer down, click & hover reticle target | `SpidermanSwinger.tsx` | **PASS** | Hovering displays animated reticle, cyan glow ring, and "CATCH SPIDEY!" badge. `onPointerDown` / `onClick` triggers catch. |
+| 8 | **Modal Copy Spec** | "You caught Spider-Man!" headline | `SpidermanModal.tsx` | **PASS** | Verified exact text rendered with gradient text styling (`bg-clip-text`). |
+| 9 | **Modal Copy Spec** | "Do you want to catch me as your software engineer / backend engineer?" | `SpidermanModal.tsx` | **PASS** | Verified exact text with styled highlights (`text-cyan-400`, `text-blue-400`). |
+| 10 | **Modal Copy Spec** | "I'm your friendly neighborhood software engineer" | `SpidermanModal.tsx` | **PASS** | Verified exact text rendered in gold italic typography (`text-[#F2C100]`). |
+| 11 | **Contact CTAs** | WhatsApp Direct CTA | `SpidermanModal.tsx` | **PASS** | `PORTFOLIO_DATA.personal.whatsappUrl` link with `MessageCircle` icon and direct tab opening. |
+| 12 | **Contact CTAs** | Send Email CTA | `SpidermanModal.tsx` | **PASS** | `mailto:febrian.workmail@gmail.com` link with `Mail` icon. |
+| 13 | **Contact CTAs** | LinkedIn & GitHub CTAs | `SpidermanModal.tsx` | **PASS** | Valid links to LinkedIn and GitHub profiles with custom SVG icons. |
+| 14 | **Contact CTAs** | Download Resume / CV CTA | `SpidermanModal.tsx` | **PASS** | Downloads `CV_Muhammad_Febrian_Maulana_2026.pdf` directly. |
+| 15 | **Spidey FX** | Red, Gold & Cyan Confetti Burst | `SpidermanModal.tsx` | **PASS** | Triggers `canvas-confetti` burst on CTA interaction. |
+| 16 | **Hanging Guardian** | Upside-down hanging pose after dismissal | `SpidermanHanging.tsx` | **PASS** | Transitions smoothly to upside-down pendulum sway in top right corner. |
+| 17 | **Comic Speech Bubble** | Upside-down Spidey comic dialogue callout | `SpidermanHanging.tsx` | **PASS** | Renders animated speech bubble reading `"Please hire Febrian! He's a good man! 🕷️✨"` pointing to Spidey. |
+| 18 | **Non-Intrusive UX** | Passive background element (`pointer-events-none`) | `SpidermanHanging.tsx` | **PASS** | `pointer-events-none` container ensures 0 interference with underlying portfolio links, buttons, or scroll. |
+| 19 | **Page Refresh Reset** | Page refresh resets to swinging state | `SpidermanEasterEgg.tsx` | **PASS** | State initializes to `'swinging'` on mount, restoring active Easter Egg on every site refresh. |
+| 20 | **Auto-Expiration** | 1-month expiration date (`Sept 2, 2026 23:59:59`) | `SpidermanEasterEgg.tsx` | **PASS** | Evaluates `new Date() > EXPIRATION_DATE` on mount; unmounts automatically when expired. |
+| 21 | **Keyboard Access** | Modal ESC Key Listener | `SpidermanModal.tsx` | **PASS** | Pressing `Escape` key closes the modal and transitions state to hanging. |
+| 22 | **Body Scroll Lock** | Prevent background scrolling when modal is open | `SpidermanModal.tsx` | **PASS** | Locks `document.body.style.overflow = 'hidden'` while modal is open, restoring on unmount. |
 
 ---
 
-## 3. Detailed Category Breakdown & Cert Distribution
+## 3. Static Analysis & Build Logs
 
-```
-===================================================================================
-Category Distribution (Total: 22 Certifications)
-===================================================================================
-1. Data & Analytics         [10] ████████████████████ (45.5%)
-2. Software Engineering     [ 7] ██████████████       (31.8%)
-3. Web & Backend            [ 3] ██████               (13.6%)
-4. Cybersecurity            [ 1] ██                   ( 4.5%)
-5. Enterprise Systems       [ 1] ██                   ( 4.5%)
-===================================================================================
-```
-
----
-
-## 4. Issues Discovered & Resolution Log
-
-1. **Clipboard API Non-HTTPS / Legacy Browser Fallback**:
-   - *Issue*: `navigator.clipboard.writeText` may be undefined in unsecure HTTP contexts or older mobile browsers.
-   - *Fix Implemented*: Added fallback using `document.createElement('textarea')` and `document.execCommand('copy')` in [`src/components/CredentialModal.tsx`](file:///C:/Users/MSI%20SHOP%20ID/Desktop/febrian-portfolio/src/components/CredentialModal.tsx).
-   - *Status*: **VERIFIED FIXED**.
-
-2. **Mobile Constellation Touch Listener**:
-   - *Issue*: Background star interaction originally relied solely on desktop `mousemove`.
-   - *Fix Implemented*: Implemented passive `touchstart`, `touchmove`, and `touchend` handlers in [`src/components/CosmicUniverseCanvas.tsx`](file:///C:/Users/MSI%20SHOP%20ID/Desktop/febrian-portfolio/src/components/CosmicUniverseCanvas.tsx).
-   - *Status*: **VERIFIED FIXED**.
-
----
-
-## 5. Final Build & Static Analysis Verification Logs
-
-### 5.1 Static Code Analysis (`npx oxlint`)
+### 3.1 Code Linting (`npx oxlint`)
 ```bash
 Found 0 warnings and 0 errors.
-Finished in 13ms on 17 files with 103 rules using 12 threads.
+Finished in 14ms on 21 files with 103 rules using 12 threads.
 ```
 
-### 5.2 Production Build Check (`npm run build`)
+### 3.2 Production Build (`npm run build`)
 ```bash
 > febrian-portfolio@0.0.0 build
 > tsc -b && vite build
 
 vite v8.1.5 building client environment for production...
-transforming...✓ 2192 modules transformed.
+transforming...✓ 2196 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/index.html                   1.43 kB │ gzip:   0.74 kB
-dist/assets/index-BQmirUKC.css   60.13 kB │ gzip:   9.83 kB
-dist/assets/index-9wY0l9ft.js   403.35 kB │ gzip: 126.70 kB
+dist/assets/index-CHLsMfcu.css   69.74 kB │ gzip:  10.98 kB
+dist/assets/index-C4UOJP44.js   426.09 kB │ gzip: 131.42 kB
 
-✓ built in 472ms
+✓ built in 571ms
 ```
 
 ---
 
-## 6. QA Sign-Off & Recommendations
+## 4. Final Verdict
 
-- **Frontend Engineering (Febrian)**: GPA metadata and rendering in [`src/components/Education.tsx`](file:///C:/Users/MSI%20SHOP%20ID/Desktop/febrian-portfolio/src/components/Education.tsx) are cleanly implemented with optional property handling (`gpa?: string`). TypeScript compiler (`tsc -b`) and `oxlint` static analysis passed with zero errors or warnings.
-- **UI/UX (Dani)**: Visual hierarchy, glassmorphism badge styling with `Award` icon pulsing animation, text contrast, and responsive layout across viewport sizes are fully verified.
+**QA STATUS**: **QA PASSED (100%)**
 
-**Final Verdict**: **100% PASS - Ready for Production Deployment**.
+All 3 user requested features are completely designed, implemented, and QA tested. The Spider-Man Easter Egg feature is fully functional and ready for production!
 
 ---
-*Report prepared by Rani (Lead Quality Assurance Engineer)*
-
-
+*Report prepared by MJ (Quality Assurance Specialist)*
