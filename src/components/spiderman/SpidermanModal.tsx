@@ -12,6 +12,14 @@ interface SpidermanModalProps {
 }
 
 export const SpidermanModal: React.FC<SpidermanModalProps> = ({ isOpen, onClose }) => {
+  const openTimeRef = React.useRef<number>(0);
+
+  useEffect(() => {
+    if (isOpen) {
+      openTimeRef.current = Date.now();
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -47,6 +55,15 @@ export const SpidermanModal: React.FC<SpidermanModalProps> = ({ isOpen, onClose 
     onClose();
   };
 
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // Ignore synthetic click ghosting on mobile within 400ms of opening
+    if (Date.now() - openTimeRef.current < 400) {
+      return;
+    }
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -56,7 +73,7 @@ export const SpidermanModal: React.FC<SpidermanModalProps> = ({ isOpen, onClose 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleBackdropClick}
             className="fixed inset-0 bg-black/80 backdrop-blur-md -z-10"
           />
 
