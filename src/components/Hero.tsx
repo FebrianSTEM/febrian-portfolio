@@ -116,7 +116,7 @@ export const Hero: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg sm:text-xl text-slate-300 font-medium leading-relaxed mb-4"
             >
-              Architecting high-throughput backend services, payment gateways, and batch optimization pipelines in <span className="text-blue-400 font-semibold font-mono">.NET 8, C#, Java, Python, SQL & AWS</span>.
+              Engineering scalable enterprise APIs, payment gateway integrations, and reliable data pipelines across <span className="text-blue-400 font-semibold font-mono">.NET 8, C#, Java, Python, and SQL</span>.
             </motion.p>
 
             <motion.p
