@@ -21,6 +21,7 @@ const SPIDEY_CATCHPHRASES = [
 
 export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const catchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [spideyPos, setSpideyPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   const [isCaught, setIsCaught] = useState(false);
@@ -56,6 +57,15 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
     return () => clearInterval(interval);
   }, [isCaught]);
 
+  // Cleanup catch timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (catchTimeoutRef.current) {
+        clearTimeout(catchTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Handle high-energy catch action animation
   const handleTriggerCatch = (e: React.MouseEvent | React.PointerEvent) => {
     e.stopPropagation();
@@ -68,8 +78,12 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
     setCatchCoords({ x, y });
     setIsCaught(true);
 
+    if (catchTimeoutRef.current) {
+      clearTimeout(catchTimeoutRef.current);
+    }
+
     // Wait for the comic "THWIP!" action burst animation to play before launching modal
-    setTimeout(() => {
+    catchTimeoutRef.current = setTimeout(() => {
       onCatch();
     }, 650);
   };
@@ -225,5 +239,3 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
     </div>
   );
 };
-
-
