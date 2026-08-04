@@ -93,8 +93,6 @@ export const Hero: React.FC = () => {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="font-semibold text-slate-200">Senior Software Engineer</span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-400">Enterprise Backend & Cloud Architect</span>
           </motion.div>
         </div>
 
