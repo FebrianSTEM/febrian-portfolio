@@ -1,63 +1,26 @@
-export interface ExperienceItem {
-  id: string;
-  company: string;
-  role: string;
-  location?: string;
-  period: string;
-  highlights: string[];
-  techStack: string[];
-}
+import type {
+  ExperienceItem,
+  EducationItem,
+  ProjectItem,
+  CourseCategory,
+  CourseItem,
+  SkillCategory,
+  MetricItem,
+  PersonalInfo,
+  PortfolioData,
+} from '../types/domain';
 
-export interface EducationItem {
-  degree: string;
-  institution: string;
-  location: string;
-  period: string;
-  status: string;
-  gpa?: string;
-}
-
-export interface ProjectItem {
-  title: string;
-  description: string;
-  stack: string[];
-}
-
-export interface CourseItem {
-  id: string;
-  title: string;
-  organizer: string;
-  organizerLogo?: string;
-  issued: string;
-  expiration?: string;
-  credentialId?: string;
-  credentialUrl?: string;
-  category: 'Software Engineering' | 'Data & Analytics' | 'Web & Backend' | 'Cybersecurity' | 'Enterprise Systems';
-  skills: string[];
-  description: string;
-  featured?: boolean;
-}
-
-export interface PortfolioData {
-  personal: {
-    name: string;
-    title: string;
-    location: string;
-    phone: string;
-    whatsappUrl: string;
-    email: string;
-    githubUrl: string;
-    linkedinUrl: string;
-    cvFileUrl: string;
-    summary: string;
-    metrics: { label: string; value: string; highlight: string }[];
-  };
-  skills: { category: string; items: string[] }[];
-  experiences: ExperienceItem[];
-  education: EducationItem[];
-  projects: ProjectItem[];
-  courses: CourseItem[];
-}
+export type {
+  ExperienceItem,
+  EducationItem,
+  ProjectItem,
+  CourseCategory,
+  CourseItem,
+  SkillCategory,
+  MetricItem,
+  PersonalInfo,
+  PortfolioData,
+};
 
 export const PORTFOLIO_DATA: PortfolioData = {
   personal: {

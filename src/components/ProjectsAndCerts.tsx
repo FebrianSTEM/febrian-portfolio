@@ -1,36 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PORTFOLIO_DATA, type CourseItem } from '../data/portfolioData';
+import { useProjectsAndCertsFilter } from '../hooks/useProjectsAndCertsFilter';
 import { CredentialModal } from './CredentialModal';
 import { FolderGit2, Award, Calendar, Search, ShieldCheck, ExternalLink, Eye, Sparkles } from 'lucide-react';
 
 export const ProjectsAndCerts: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedCourse, setSelectedCourse] = useState<CourseItem | null>(null);
-
-  const categories = [
-    'All',
-    'Software Engineering',
-    'Web & Backend',
-    'Data & Analytics',
-    'Cybersecurity',
-    'Enterprise Systems',
-  ];
-
-  const filteredCourses = PORTFOLIO_DATA.courses.filter((course) => {
-    const matchesCategory =
-      selectedCategory === 'All' || course.category === selectedCategory;
-    const term = searchTerm.toLowerCase().trim();
-    const matchesSearch =
-      !term ||
-      course.title.toLowerCase().includes(term) ||
-      course.organizer.toLowerCase().includes(term) ||
-      course.description.toLowerCase().includes(term) ||
-      course.skills.some((s) => s.toLowerCase().includes(term)) ||
-      course.category.toLowerCase().includes(term);
-    return matchesCategory && matchesSearch;
-  });
+  const {
+    selectedCategory,
+    setSelectedCategory,
+    searchTerm,
+    setSearchTerm,
+    selectedCourse,
+    setSelectedCourse,
+    categories,
+    projects,
+    filteredCourses,
+    getCategoryCount,
+    resetFilters,
+    handleSelectSkillFilter,
+  } = useProjectsAndCertsFilter();
 
   return (
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative z-10 border-t border-slate-900">
@@ -52,7 +40,7 @@ export const ProjectsAndCerts: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
-            {PORTFOLIO_DATA.projects.map((proj) => (
+            {projects.map((proj) => (
               <motion.div
                 key={proj.title}
                 initial={{ opacity: 0, y: 15 }}
@@ -141,11 +129,7 @@ export const ProjectsAndCerts: React.FC = () => {
             {/* Category Pills Bar */}
             <div className="flex flex-wrap items-center justify-center gap-1.5">
               {categories.map((cat) => {
-                const count =
-                  cat === 'All'
-                    ? PORTFOLIO_DATA.courses.length
-                    : PORTFOLIO_DATA.courses.filter((c) => c.category === cat).length;
-
+                const count = getCategoryCount(cat);
                 const isActive = selectedCategory === cat;
 
                 return (
@@ -183,10 +167,7 @@ export const ProjectsAndCerts: React.FC = () => {
                 Try adjusting your search terms or selecting another category.
               </p>
               <button
-                onClick={() => {
-                  setSearchTerm('');
-                  setSelectedCategory('All');
-                }}
+                onClick={resetFilters}
                 className="mt-4 px-3.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-blue-400 hover:underline"
               >
                 Reset Filters
@@ -247,7 +228,7 @@ export const ProjectsAndCerts: React.FC = () => {
                         {course.skills.slice(0, 4).map((skill) => (
                           <button
                             key={skill}
-                            onClick={() => setSearchTerm(skill)}
+                            onClick={() => handleSelectSkillFilter(skill)}
                             className="px-2 py-0.5 rounded text-[11px] font-mono bg-slate-900 text-slate-300 border border-slate-800 hover:border-blue-500/50 hover:text-blue-300 transition-colors"
                             title={`Filter by skill: ${skill}`}
                           >
@@ -306,4 +287,3 @@ export const ProjectsAndCerts: React.FC = () => {
     </section>
   );
 };
-
