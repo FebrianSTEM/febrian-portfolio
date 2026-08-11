@@ -9,6 +9,7 @@ This application features an interactive **Big Bang Theory Cosmic Universe Backg
 ## 🌟 Key Features
 
 ### 🌌 1. Big Bang Theory Cosmic Universe Engine
+- **Animated Atom Favicon**: A revolving atom SVG animation displaying continuously in the browser tab.
 - **Twinkling Starfield & Shooting Comets**: Dynamic canvas particle system featuring 250 twinkling stars (scaling responsively on mobile) and periodic meteor shooting stars.
 - **Atomic Orbit & Orbiting Electron Particles**: Bohr/Rutherford atomic nucleus surrounded by 3 tilted orbital rings with glowing electrons moving along trigonometric paths.
 - **Floating Physics & Math Formulas**: Glassmorphic badges drifting across space featuring iconic equations:
