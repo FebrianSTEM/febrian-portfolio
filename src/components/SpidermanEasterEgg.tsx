@@ -5,8 +5,7 @@ import { SpidermanHanging } from './spiderman/SpidermanHanging';
 
 export type SpidermanState = 'swinging' | 'caught' | 'hanging';
 
-// Expiration date set to 1 month from creation (September 2, 2026 23:59:59 local time)
-const EXPIRATION_DATE = new Date('2026-09-02T23:59:59+07:00');
+const EXPIRATION_DATE = new Date('2026-12-31T23:59:59+07:00');
 
 export const SpidermanEasterEgg: React.FC = () => {
   const [gameState, setGameState] = useState<SpidermanState>('swinging');
