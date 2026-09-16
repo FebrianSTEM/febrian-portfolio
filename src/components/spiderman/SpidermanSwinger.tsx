@@ -7,16 +7,16 @@ interface SpidermanSwingerProps {
 }
 
 const SPIDEY_CATCHPHRASES = [
-  "Catch me if you can! 🕷️",
+  "Catch me if you can!",
   "Thwip! Need a Software Engineer?",
-  "Hire Febrian! He's amazing! 🦸",
-  "Click me for a secret Easter Egg! 🎁",
+  "Hire Febrian — he is amazing!",
+  "Click me for a secret Easter Egg!",
   "Your friendly neighborhood dev!",
-  "Catch me to unlock Febrian's CV! 📄",
-  "Just swinging by! Click me!",
-  "Backend superhero right here! 💻🦸",
+  "Catch me to unlock Febrian's CV!",
+  "Just swinging by — click me!",
+  "Backend superhero right here!",
   "Gotcha! Click to catch me!",
-  "Let me solve your bugs! 🐛🕷️",
+  "Let me solve your bugs!",
 ];
 
 export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) => {
@@ -32,51 +32,39 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
   const [isCaught, setIsCaught] = useState(false);
   const [catchCoords, setCatchCoords] = useState<{ x: number; y: number } | null>(null);
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
-  const [showMusicHint, setShowMusicHint] = useState(false);
-
-  // Audio setup with correct event ordering to avoid race condition
+  // Audio setup: muted autoplay trick — browsers always allow muted autoplay.
+  // We start muted, then immediately unmute once play() succeeds.
   useEffect(() => {
     const audio = new Audio('/spiderman-theme.webm');
     audio.loop = true;
     audio.volume = 0.4;
+    audio.muted = true; // muted = always allowed to autoplay
     audioRef.current = audio;
 
-    // Ref to the unlock handler so we can remove it later
-    let unlockHandler: (() => void) | null = null;
-
     audio.play().then(() => {
-      // Autoplay allowed — great!
+      // Playing (muted) — now unmute for seamless sound
+      audio.muted = false;
       audioStartedRef.current = true;
     }).catch(() => {
-      // Autoplay blocked by browser — wait for user interaction
-      setShowMusicHint(true);
-
-      unlockHandler = () => {
-        // isCaughtRef is set SYNCHRONOUSLY in handleTriggerCatch (React bubble phase)
-        // which fires BEFORE this document bubble-phase listener.
-        // So if Spider-Man was clicked, isCaughtRef.current is already true here.
+      // Fallback: play with sound on next user interaction
+      const unlockHandler = () => {
         if (isCaughtRef.current || audioStartedRef.current) {
-          // Spider-Man was caught on this click — remove listener and bail
-          if (unlockHandler) document.removeEventListener('click', unlockHandler);
+          document.removeEventListener('click', unlockHandler);
           return;
         }
         audioStartedRef.current = true;
-        setShowMusicHint(false);
+        audio.muted = false;
         audio.play().catch(() => {});
-        if (unlockHandler) document.removeEventListener('click', unlockHandler);
+        document.removeEventListener('click', unlockHandler);
       };
-
-      // BUBBLE phase (no capture flag) — fires AFTER React synthetic event handlers
-      // This ensures handleTriggerCatch has already set isCaughtRef before we check it
       document.addEventListener('click', unlockHandler);
+
+      return () => document.removeEventListener('click', unlockHandler);
     });
 
     return () => {
       audio.pause();
       audio.src = '';
-      if (unlockHandler) {
-        document.removeEventListener('click', unlockHandler);
-      }
     };
   }, []);
 
@@ -125,7 +113,6 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
 
     // Set BEFORE native event reaches document bubble listener
     isCaughtRef.current = true;
-    setShowMusicHint(false);
 
     // Stop the music
     if (audioRef.current) {
@@ -185,29 +172,6 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
         )}
       </svg>
 
-      {/* Music hint — shown when browser blocks autoplay */}
-      <AnimatePresence>
-        {showMusicHint && !isCaught && (
-          <motion.div
-            className="fixed bottom-6 left-1/2 -translate-x-1/2 pointer-events-none z-[999] flex items-center gap-2 px-4 py-2 rounded-full bg-black/70 border border-white/20 backdrop-blur-md shadow-xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.4 }}
-          >
-            <motion.span
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-              className="text-base"
-            >
-              🎵
-            </motion.span>
-            <span className="text-white text-xs font-semibold tracking-wide">
-              Click anywhere to play Spider-Man theme!
-            </span>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Swinging Motion Wrapper */}
       {!isCaught && (
@@ -308,3 +272,6 @@ export const SpidermanSwinger: React.FC<SpidermanSwingerProps> = ({ onCatch }) =
     </div>
   );
 };
+
+
+
